@@ -18,6 +18,8 @@ SHADOW_DATABASE_URL = transiction migration db
 - ApolloServer
 - Prisma (OMR)
 - Postgress
+- Graphql
+- heroku
 
 ## References
 - To generate a sample database
@@ -28,3 +30,7 @@ https://www.prisma.io/docs/concepts/components/prisma-migrate/shadow-database
 https://tomray.dev/setup-and-deploy-graphql-server#configuring-typescript
 - create schema apollo
 https://www.apollographql.com/docs/tutorial/schema/
+- Working with Dates, Time, Timezones in GraphQL and PostgreSQL
+https://hasura.io/blog/working-with-dates-time-timezones-graphql-postgresql/
+- GraphQL Modules tutorial: How to modularize GraphQL schema
+https://blog.logrocket.com/graphql-modules-tutorial-how-to-modularize-graphql-schema/
