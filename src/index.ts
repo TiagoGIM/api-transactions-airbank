@@ -16,7 +16,7 @@ const startServer = async () => {
 
   const resolvers = {
     Query: {
-      hello: () => 'Hello world!',
+      hello: () => 'First commit just config Apollo!',
     },
   };
 
