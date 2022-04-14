@@ -1,4 +1,4 @@
-type Transactions = {
+type Transaction = {
   id: String
   account: String
   description: String
