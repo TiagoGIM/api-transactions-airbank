@@ -1,6 +1,8 @@
 import { prisma } from '../client'
 import { createModule, gql } from 'graphql-modules'
 
+import { GraphQLScalarType, Kind } from "graphql";
+import dayjs from "dayjs";
 export interface DataRange {
   transactionDateInit : Date;
   transactionDateEnd : Date;
@@ -11,6 +13,7 @@ export const transactions = createModule({
   dirname: __dirname,
   typeDefs: [
     gql`
+    scalar CustomDate
     type Query {
       getAlltransactions: [Transaction],
       getTransactionByDate(transactionDateInit : String, transactionDateEnd :String): [Transaction],
@@ -34,9 +37,9 @@ export const transactions = createModule({
     currency: String
     amount: Float
     status: String
-    transactionDate: String
-    createdAt: String
-    updatedAt: String
+    transactionDate: CustomDate
+    createdAt: CustomDate
+    updatedAt: CustomDate
   }
   `
   ],
@@ -50,7 +53,6 @@ export const transactions = createModule({
         if(transactionDateInit && transactionDateEnd){
           transactionDateInit = new Date(transactionDateInit);
           transactionDateEnd = new Date(transactionDateEnd);
-  
           return await prisma.transaction.findMany({
             where: {
               transactionDate: {
@@ -71,5 +73,21 @@ export const transactions = createModule({
         })
       }
     },
+    CustomDate: new GraphQLScalarType({
+      name: "Date",
+      description: "Custom Scalar Type Date",
+      parseValue(value) {
+        return dayjs(value); // value from the client
+      },
+      serialize(value) {
+        return dayjs(value).format("MM-DD-YYYY"); // value sent to the client
+      },
+      parseLiteral(ast) {
+        if (ast.kind === Kind.STRING) {
+          return dayjs(ast.value); // ast value is always in string format
+        }
+        return null;
+      }
+    })
   }
 })
