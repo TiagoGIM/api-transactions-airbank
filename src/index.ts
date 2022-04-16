@@ -1,12 +1,9 @@
 import { createServer } from "http";
-import express from "express";
-import { ApolloServer} from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { application } from "./config/application";
-
+import app from "./server";
 const schema = application.createSchemaForApollo();
-const startServer = async () => { 
-
-  const app = express()
+const startServer = async () => {
   const httpServer = createServer(app)
   const apolloServer = new ApolloServer({
     schema,
@@ -14,8 +11,8 @@ const startServer = async () => {
 
   await apolloServer.start()
   apolloServer.applyMiddleware({
-      app,
-      path: '/api/v1',
+    app,
+    path: '/api/v1',
   })
 
   let port = 3300;
