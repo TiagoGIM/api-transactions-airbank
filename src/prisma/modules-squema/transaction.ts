@@ -49,6 +49,9 @@ export const transactions = createModule({
         return await prisma.transaction.findMany()
       },
       getTransactionByDate: async (_ :any, dataRange: DataRange) => {
+        //TODO: segregate responsibility with a respository pattern and service layer
+        //TODO: add pagination
+        //TODO: add error handller
         let {transactionDateInit, transactionDateEnd} = dataRange;
         if(transactionDateInit && transactionDateEnd){
           transactionDateInit = new Date(transactionDateInit);
@@ -77,14 +80,14 @@ export const transactions = createModule({
       name: "Date",
       description: "Custom Scalar Type Date",
       parseValue(value) {
-        return dayjs(value); // value from the client
+        return dayjs(value);
       },
       serialize(value) {
-        return dayjs(value).format("MM-DD-YYYY"); // value sent to the client
+        return dayjs(value).format("MM-DD-YYYY"); 
       },
       parseLiteral(ast) {
         if (ast.kind === Kind.STRING) {
-          return dayjs(ast.value); // ast value is always in string format
+          return dayjs(ast.value); 
         }
         return null;
       }

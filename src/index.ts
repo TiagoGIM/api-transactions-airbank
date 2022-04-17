@@ -20,5 +20,4 @@ const startServer = async () => {
     console.log(`Server listening on localhost:${port}${apolloServer.graphqlPath}`)
   )
 }
-
 startServer()

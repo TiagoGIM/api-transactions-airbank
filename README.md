@@ -1,25 +1,51 @@
-## Endpoints and Mocks
+# AirBank Transactions
+A simple API builted to acomplishe the AirBank interview challenge.
+This repository provides a Graphql API to retrieve information about banking transactions. The API are used to be consumed in a VUE application called [My Transactions](https://adorable-banoffee-62308c.netlify.app/).
+
+## Queries
+The data can be required by three diferentes queries.
+- GetTransactions 
+- GetTransactionsByDate
+- GetTransactionsById
+
+If the API is being served locally, you can test the queries using [Apollo Studio](https://studio.apollographql.com/sandbox/explorer)
+
+## How run this project
+> Production mode
+```
+$ npm run start
+```
+> Develop mode
+```
+$ npm run dev
+```
+
+## Requiriments
+
+- [Prisma ORM](https://www.prisma.io/)
+- [Postgress Database](https://devcenter.heroku.com/articles/heroku-postgresql)
+- [ApolloServer](https://www.apollographql.com/docs/apollo-server/)
+- NodeJs & TypeScript
+
+## Postgress db and Prisma ORM
+
+### Seeding the database 
+```
+npm run seed
+```
+### Migrations
+
+```
+npx prisma migration dev
+```
+
+ For using Prisma ORM migrations the db USER   need allow Prisma generate another db called SHADOWBASE, or provide a second URL for this proposit. This happens because when running a dev migration  a temporary db will be created to avoid lost in the main database.
+### Endpoints and Mocks
 - Heroku
 https://api-airbank-transactions.herokuapp.com/api
 
 - Postman
 https://7d19cadf-2b61-4342-9168-469e5ad104a2.mock.pstmn.io/query/transactions
-
-
-### Database
-Foi usado dois bancos postgres devido a limitaçao da conta gratuita e necessidade do prisma de ter um segundo banco para fazer migracoes.
-
-Env Variables
-DATABASE_URL = url main db
-SHADOW_DATABASE_URL = transiction migration db
-
-## Technologies
-- Express
-- ApolloServer
-- Prisma (OMR)
-- Postgress
-- Graphql
-- heroku
 
 ## References
 - To generate a sample database
@@ -34,3 +60,7 @@ https://www.apollographql.com/docs/tutorial/schema/
 https://hasura.io/blog/working-with-dates-time-timezones-graphql-postgresql/
 - GraphQL Modules tutorial: How to modularize GraphQL schema
 https://blog.logrocket.com/graphql-modules-tutorial-how-to-modularize-graphql-schema/
+- Custom Scalars and Enuns
+https://master--apollo-server-docs.netlify.app/docs/apollo-server/schema/scalars-enums/
+- Custom Scalars Date video
+https://www.youtube.com/watch?v=Nx3KcrYDJas

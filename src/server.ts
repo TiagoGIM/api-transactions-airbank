@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 const app = express();
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://adorable-banoffee-62308c.netlify.app';
+const API_LOCAL = 'http://localhost:3000';
 const options: cors.CorsOptions = {
   allowedHeaders: [
     'Origin',
@@ -12,7 +13,7 @@ const options: cors.CorsOptions = {
   ],
   credentials: true,
   methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-  origin: API_URL,
+  origin: "*",
   preflightContinue: false,
 };
 
