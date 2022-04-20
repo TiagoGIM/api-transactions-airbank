@@ -1,7 +1,8 @@
 import { createServer } from "http";
 import { ApolloServer } from "apollo-server-express";
-import { application } from "./config/application";
-import app from "./server";
+
+import app from "./main/config/app";
+import { application } from "./main/controllers/application";
 const schema = application.createSchemaForApollo();
 const startServer = async () => {
   const httpServer = createServer(app)

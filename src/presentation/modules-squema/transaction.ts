@@ -1,12 +1,12 @@
-import { prisma } from '../client'
 import { createModule, gql } from 'graphql-modules'
-
 import { GraphQLScalarType, Kind } from "graphql";
 import dayjs from "dayjs";
-export interface DataRange {
-  transactionDateInit : Date;
-  transactionDateEnd : Date;
-}
+import { DataRange } from '../../domain/entity/transaction';
+import { transactionRepository } from '../../infra/repository/transaction.repository';
+import { TransactionServiceImpl } from '../../data/services/transactions';
+
+const repo =  new transactionRepository();
+const service = new TransactionServiceImpl(repo);
 
 export const transactions = createModule({
   id: 'transaction-module',
@@ -16,9 +16,7 @@ export const transactions = createModule({
     scalar CustomDate
     type Query {
       getAlltransactions: [Transaction],
-      getTransactionByDate(transactionDateInit : String, transactionDateEnd :String): [Transaction],
-      getTransactionById(id : ID): PartialTransaction
-      
+      getTransactionByDate(transactionDateInit : String, transactionDateEnd :String): [Transaction],      
     }
 
     type PartialTransaction {
@@ -46,35 +44,12 @@ export const transactions = createModule({
   resolvers: {
     Query: {
       getAlltransactions: async () => {
-        return await prisma.transaction.findMany()
+        return service.getAllTransactions();
       },
       getTransactionByDate: async (_ :any, dataRange: DataRange) => {
-        //TODO: segregate responsibility with a respository pattern and service layer
-        //TODO: add pagination
         //TODO: add error handller
-        let {transactionDateInit, transactionDateEnd} = dataRange;
-        if(transactionDateInit && transactionDateEnd){
-          transactionDateInit = new Date(transactionDateInit);
-          transactionDateEnd = new Date(transactionDateEnd);
-          return await prisma.transaction.findMany({
-            where: {
-              transactionDate: {
-                gte: transactionDateInit,
-                lte: transactionDateEnd
-              }
-            }
-          })
-        }else{
-          return await prisma.transaction.findMany();
-        }
+        return service.getTransictionsByDateRange(dataRange);
       },
-      getTransactionById: async (_ :any, {id}: {id: string}) => {
-        return await prisma.transaction.findUnique({
-          where: {
-            id: id
-          }
-        })
-      }
     },
     CustomDate: new GraphQLScalarType({
       name: "Date",
