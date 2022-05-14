@@ -64,3 +64,5 @@ https://blog.logrocket.com/graphql-modules-tutorial-how-to-modularize-graphql-sc
 https://master--apollo-server-docs.netlify.app/docs/apollo-server/schema/scalars-enums/
 - Custom Scalars Date video
 https://www.youtube.com/watch?v=Nx3KcrYDJas
+- How to seed a database with Prisma
+https://planetscale.com/blog/how-to-seed-a-database-with-prisma-and-next-js

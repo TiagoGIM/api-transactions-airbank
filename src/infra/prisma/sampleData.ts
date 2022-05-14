@@ -1,4 +1,18 @@
-export const transactionsData = [
+export interface T {
+    id: string;
+    account: string;
+    description: string;
+    category: string;
+    reference: string;
+    currency: string;
+    amount: number;
+    status: string;
+    transactionDate: string | Date;
+    createdAt:  string | Date;
+    updatedAt:  string | Date;
+}
+
+export const transactionsData : T[]  = [
   {
     id: "e206619a-6dd2-4cc1-8603-429631d46476",
     account: "Sydney Beard",
